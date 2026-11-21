@@ -1,12 +1,12 @@
 package org.sid.bank_account_service.web;
 
+import org.sid.bank_account_service.dto.AccountRequestdTO;
+import org.sid.bank_account_service.dto.AccountResponseDto;
 import org.sid.bank_account_service.entities.BankAccount;
 import org.sid.bank_account_service.repositories.BankAccountRepository;
+import org.sid.bank_account_service.service.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -18,7 +18,7 @@ public class AccountRestController {
     @Autowired
     BankAccountRepository bankAccountRepository;
     @Autowired
-    BankAccountServiceImp bankAccountServiceImp;
+    AccountServiceImpl accountServiceImpl;
     @GetMapping("/api")
     public List<BankAccount> bankAccounts(){
         return bankAccountRepository.findAll();
@@ -38,7 +38,7 @@ public class AccountRestController {
     }
     @PostMapping("/BankAccounts")
     public AccountResponseDto save(@RequestBody AccountRequestdTO account){
-        return bankAccountServiceImp.addAccount(account);
+        return AccountServiceImpl.addAccount(account);
     }
     @DeleteMapping("/BankAccounts/{id}")
     public void delete(@PathVariable UUID id){
